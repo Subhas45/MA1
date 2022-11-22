@@ -14,11 +14,10 @@ class world extends Phaser.Scene {
     this.load.image("one","assets/one.png");
     this.load.image("two","assets/two.png");
     this.load.image("three","assets/three.png");
-    // this.load.image("star","assets/dump1.png")
-    this.load.spritesheet("u3", "assets/ultima.gif", {frameWidth: 16,frameHeight: 16});
+    // this.load.spritesheet("u3", "assets/ultima.gif", {frameWidth: 16,frameHeight: 16});
     
     
-    this.load.spritesheet('boy', 'assets/boy.png',{ frameWidth:320, frameHeight:320});   
+    // this.load.spritesheet('boy', 'assets/boy.png',{ frameWidth:320, frameHeight:320});   
     }
    
   
@@ -52,72 +51,37 @@ class world extends Phaser.Scene {
     this.physics.world.bounds.height = this.groundLayer.height;
    
     
-   
-
-  // this.anims.create({
-  //     key:'spin',
-  //     frames:this.anims.generateFrameNumbers('star',
-  //     { start:0, end:3}),
-  //     frameRate:15,
-  //     repeat:-1
-  // });
-
-  this.anims.create({
-      key:'left',
-      frames:this.anims.generateFrameNumbers('boy',
-      { start:0, end:3}),
-      frameRate:15,
-      repeat:-1
-  });
-
-  this.anims.create({
-      key:'back',
-      frames:this.anims.generateFrameNumbers('boy',
-      { start:3, end:5}),
-      frameRate:7,
-      repeat:-1
-  });
-
-  this.anims.create({
-      key:'front',
-      frames:this.anims.generateFrameNumbers('boy',
-      { start:3, end:5}),
-      frameRate:7,
-      repeat:-1
-  });
-
-  this.anims.create({
-      key:'right',
-      frames:this.anims.generateFrameNumbers('boy',
-      { start:5, end:8}),
-      frameRate:15,
-      repeat:-1
-  });
-
-   //tween anims
-
-   this.anims.create({
-    key: "fig",
-    frames: this.anims.generateFrameNumbers("u3", { start: 36, end: 37 }),
-    frameRate: 5,
-    repeat: -1,
-  });
+  
 
 
     this.player = this.physics.add.sprite(1443, 1742, 'boy').setScale(0.2);
     window.player= this.player
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.7)
 
+      //Tween  
+      this.wolff = this.physics.add.sprite(1469, 2171, "enemy").play("wolf").setScale(0.2
+        );
+
+        this.wolff1 = this.physics.add.sprite(1552, 2134, "enemy").play("wolf").setScale(0.2
+        
+          );
+
+          this.dirtt = this.physics.add.sprite(1700, 2500, "dump").play("dirt").setScale(0.2)
+          this.dirtt.body.setSize(this.dirtt.width * 0.5, this.dirtt.height * 0.7)
+      
     this.player.setCollideWorldBounds(true); // don't go out of the this.map
 
     this.time.addEvent({
       delay: 0,
-      callback: this.moveLadder,
+      callback: this.moveSquare,
       callbackScope: this,
       loop: false,
     });
-    //Tween  
-    this.fighter = this.physics.add.sprite(100, 300, "u3").play("fig").setScale(2);
+    
+     
+  
+
+
     // // create the arrow keys
      this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -128,9 +92,16 @@ class world extends Phaser.Scene {
 
      this.physics.add.collider(this.decoLayer, this.player);
 
+     this.physics.add.collider(this.decoLayer, this.wolff);
+
      this.buildingLayer.setCollisionByProperty({walltwo : true});
 
      this.physics.add.collider(this.buildingLayer, this.player);
+
+     this.physics.add.collider(this.buildingLayer, this.wolff);
+
+
+     
 
     //this.decorLayer.setCollisionByExclusion(-1, true)
    // this.buildingLayer.setCollisionByExclusion(-1, true)
@@ -190,6 +161,9 @@ class world extends Phaser.Scene {
       this.player.anims.stop();
       this.player.body.setVelocity(0, 0);
     }
+
+
+    
   } /////////////////// end of update //////////////////////////////
 
   // Function to jump to room1
@@ -208,39 +182,104 @@ class world extends Phaser.Scene {
     this.scene.start("room3");
   }
 
-  moveLadder() {
-    console.log("moveLadder");
-    this.tweens.timeline({
-      targets: this.fighter,
-      ease: "Linear",
-      loop: -1, // loop forever
-      duration: 1000,
+  //  moveRightLeft() {
+  //   console.log("moveDownUp");
+  //   this.tweens.timeline({
+  //     targets: this.wolff,
+  //     loop: -1, // loop forever
+  //     ease: "Linear",
+  //     duration: 2000,
   
+  //     tweens: [
+  //       {
+  //         y: 1173,
+  //       },
+  //       {
+  //         x: 2075,
+  //       },
+  //       {
+  //         y: 1073,
+  //       },
+  //       {
+  //         x: 1975,
+  //       },
+  //       {
+  //         y: 973,
+  //       },
+  //       {
+  //         x: 1875,
+  //       },
+  //       {
+  //         x: 1273,
+  //         y: 2175,
+  //       },
+  //     ],
+
+
+      
+  //   });
+  // }
+
+  moveRightLeft() {
+    console.log("moveDownUp");
+    this.tweens.timeline({
+      targets: this.wolff,
+      loop: -1, // loop forever
+      ease: "Linear",
+      duration: 2000,
       tweens: [
         {
-          y: 1153,
+          x: 1600,
         },
         {
-          x: 2195,
-        },
-        {
-          y: 1053,
-        },
-        {
-          x: 2095,
-        },
-        {
-          y: 953,
-        },
-        {
-          x: 1995,
-        },
-        {
-          x: 1253,
-          y: 2295,
+          x: 1500,
         },
       ],
     });
   }
+
+
+  moveRightLeft() {
+    console.log("moveDownUp");
+    this.tweens.timeline({
+      targets: this.dirtt,
+      loop: -1, // loop forever
+      ease: "Linear",
+      duration: 2000,
+      tweens: [
+        {
+          x: 1469,
+        },
+        {
+          x: 1309,
+        },
+      ],
+    });
+  }
+
+  // moveSquare() {
+  //   console.log("moveSquare");
+  //   this.tweens.timeline({
+  //     targets: this.wolff,
+  //     ease: "Linear",
+  //     loop: -1, // loop forever
+  //     duration: 1000,
+  
+  //     tweens: [
+  //       {
+  //         y: 400,
+  //       },
+  //       {
+  //         x: 400,
+  //       },
+  //       {
+  //         y: 100,
+  //       },
+  //       {
+  //         x: 100,
+  //       },
+  //     ],
+  //   });
+  // }
 
 } //////////// end of class world ////////////////////////

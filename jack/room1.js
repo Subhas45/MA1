@@ -3,18 +3,13 @@ class room1 extends Phaser.Scene {
         super({ key: 'room1' });
         
         // Put global variable here
-
-        var player;
-        var stars;
-        var groundLayer;
     }
 
 
     init(data) {
         this.player = data.player
     }
-   
-   
+
     preload() {
 
     // Step 1, load JSON
@@ -23,8 +18,6 @@ class room1 extends Phaser.Scene {
     this.load.image("oneImg","assets/one.png");
     this.load.image("twoImg","assets/two.png");
     this.load.image("threeImg","assets/three.png");
-      this.load.image("star","assets/dump1.png");
-    
 
     }
 
@@ -42,8 +35,6 @@ class room1 extends Phaser.Scene {
         let threeTiles = map.addTilesetImage("three", "threeImg");
 
         let tilesArray = [oneTiles, twoTiles, threeTiles ]
-        
-        
 
         // Step 5  Load in layers by layers 
         this.groundLayer = map.createLayer("groundLayer", tilesArray, 0, 0);
@@ -53,15 +44,13 @@ class room1 extends Phaser.Scene {
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
     
-       
-
-      
-    
-   
 
         var start = map.findObject("objectLayer",(obj) => obj.name === "start");
 
         this.player = this.physics.add.sprite(1443, 1742, 'boy').setScale(0.2);
+
+        this.dirtt = this.physics.add.sprite(1795, 1443, "dump").play("dirt").setScale(0.5);
+          
         window.player = this.player
 
         this.player.setCollideWorldBounds(true); // don't go out of the this.map
@@ -69,9 +58,6 @@ class room1 extends Phaser.Scene {
         this.decoLayer.setCollisionByProperty({wall : true});
     
         this.physics.add.collider(this.decoLayer, this.player);
-        this.physics.add.collider(this.groundLayer, this.stars);
-
-        this.physics.add.overlap(player,stars, collectStar,null,this);
 
        
         // create the arrow keys
@@ -81,12 +67,6 @@ class room1 extends Phaser.Scene {
 
         // camera follow player
         this.cameras.main.startFollow(this.player);
-
-        
-        var score = 0;
-        var scoreText;
-    
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     }
 
@@ -125,21 +105,9 @@ class room1 extends Phaser.Scene {
       this.player.body.setVelocity(0, 0);
     }
 
-//     function collectStar (player, star) 
-//     {
-//        console.log("collect star")
-//        star.disableBody(true, true);
-//     }
 
-//     function collectStar (player, star)
-// {
-//     star.disableBody(true, true);
 
-//     score += 10;
-//     scoreText.setText('Score: ' + score);
-// }
 
-   
     } //// end of updates /////////
 
      // Function to jump to room1
