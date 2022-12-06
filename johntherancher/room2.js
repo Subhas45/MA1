@@ -177,7 +177,7 @@ class room2 extends Phaser.Scene {
         //collect item
      this.dump1 = this.physics.add.sprite(1175, 912, 'dump1').play("dumpAnimation").setScale(1.5);
      this.dump2 = this.physics.add.sprite(1926, 1488, 'dump2').play("dumpAnimation").setScale(1.5);
-     this.dump3 = this.physics.add.sprite(3168, 2018, 'dump3').play("dumpAnimation").setScale(1.5);
+     this.dump3 = this.physics.add.sprite(2891, 2018, 'dump3').play("dumpAnimation").setScale(1.5);
      this.dump4 = this.physics.add.sprite(645, 1089, 'dump4').play("dumpAnimation").setScale(1.5);
      this.dump5 = this.physics.add.sprite(1954, 3146, 'dump5').play("dumpAnimation").setScale(1.5);
      this.dump6 = this.physics.add.sprite(631, 2226, 'dump6').play("dumpAnimation").setScale(1.5);
